@@ -137,6 +137,11 @@ const CreateAccount= ({ onLogin }) => {
                 '& .MuiOutlinedInput-notchedOutline': {
                   borderColor: 'transparent',
                 },
+                '& input:-webkit-autofill': {
+                  WebkitBoxShadow: '0 0 0 100px #112240 inset', // Background color
+                  WebkitTextFillColor: '#FFFFFF', // Text color
+                  transition: 'background-color 5000s ease-in-out 0s', // Prevent animation
+                },
               }}
             />
 
@@ -177,6 +182,11 @@ const CreateAccount= ({ onLogin }) => {
                 '& .MuiOutlinedInput-notchedOutline': {
                   borderColor: 'transparent',
                 },
+                '& input:-webkit-autofill': {
+                  WebkitBoxShadow: '0 0 0 100px #112240 inset', // Background color
+                  WebkitTextFillColor: '#FFFFFF', // Text color
+                  transition: 'background-color 5000s ease-in-out 0s', // Prevent animation
+                },
               }}
             />
             <TextField
@@ -209,6 +219,11 @@ const CreateAccount= ({ onLogin }) => {
                 },
                 '& .MuiOutlinedInput-notchedOutline': {
                   borderColor: 'transparent',
+                },
+                '& input:-webkit-autofill': {
+                  WebkitBoxShadow: '0 0 0 100px #112240 inset', // Background color
+                  WebkitTextFillColor: '#FFFFFF', // Text color
+                  transition: 'background-color 5000s ease-in-out 0s', // Prevent animation
                 },
               }}
             />
@@ -252,6 +267,11 @@ const CreateAccount= ({ onLogin }) => {
                 },
                 '& .MuiOutlinedInput-notchedOutline': {
                   borderColor: 'transparent',
+                },
+                '& input:-webkit-autofill': {
+                  WebkitBoxShadow: '0 0 0 100px #112240 inset', // Background color
+                  WebkitTextFillColor: '#FFFFFF', // Text color
+                  transition: 'background-color 5000s ease-in-out 0s', // Prevent animation
                 },
               }}
             />
