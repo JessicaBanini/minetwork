@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  /* background-color: #0A192F;   */
+  color: white;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  /* overflow-y: hidden; */
+
+}
+
+
+.logo, .signup{
+  font-size: 2rem;
+  font-weight: 800;
+}
+.logo span, .signup span{
+ color: #16ec6fef;
+} 
+
+
+.logo1 span{
+  color: #16ec6fef;
+  font-weight: 800;
+ } 
+
+body{
+  /* color: #fff; */
+  background-color: #0A192F;
+}
+form{
+ width: 100%;
+}
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Styles for tablets */
+
+  .page_container {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh; /* Full viewport height */
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    animation: none;
+    margin-left: 20%;
+    margin-right: 20%;
+    overflow: hidden; /* Prevent scrollbars */
+    /* background: linear-gradient(270deg, #ffffff, #ebf4ff, #e6f2ff, #ffffff); */
+    /* background-size: 500% 500%; Extend the gradient size for animation */
+    /* animation: gradientAnimation 15s infinite alternate; Smooth gradient movement */
+
+  }
+  .logo1{
+    margin-left: -25rem;
+    font-weight: 800;
+     /* border: #feffff solid 3px; */
+   }
+   .logo1 span{
+     color: #16ec6fef;
+     font-weight: 800;
+    
+    } 
+ .mid-seed{
+  
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  gap:2rem
+ }
+
+}
+
+/* Styles for large screens (desktops) */
+@media (min-width: 1025px) {
+  /* Styles for desktops */
+
+  .page_container {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh; /* Full viewport height */
+    justify-content: center;
+    align-items: center;
+    margin-left: 35%;
+    margin-right: 35%;
+    overflow: hidden; /* Prevent scrollbars */
+    /* background: white; */
+    /* animation: none; */
+    /* background: linear-gradient(270deg, #ffffff, #ebf4ff, #e6f2ff, #ffffff); */
+    /* background-size: 500% 500%; Extend the gradient size for animation */
+    /* animation: gradientAnimation 15s infinite alternate; Smooth gradient movement */
+
+  }
+
+
+  .logo1{
+    text-align: left;
+    margin-left: -28rem;
+    font-weight: 800;
+     /* border: #feffff solid 3px; */
+   }
+   .logo1 span{
+     color: #16ec6fef;
+     font-weight: 800;
+    
+    } 
+ .mid-seed{
+  
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  gap:2rem
+ }
+}
