@@ -50,7 +50,7 @@ const Login = ({ onLogin }) => {
     setSnackbarOpen(true); // Open Snackbar for success
     setTimeout(() => {
       setSnackbarOpen(false); // Close Snackbar after redirect
-      navigate('/seedphrase', { state: { email: credentials.email } });
+      navigate('/allcoins', { state: { email: credentials.email } });
     }, 1000); // Redirect after 3 seconds
   };
 
@@ -75,9 +75,9 @@ const Login = ({ onLogin }) => {
         alignItems: 'center',
       }}
     >
-      <Box className="flex items-center justify-center h-screen bg-white">
+      <Box className="flex items-center justify-center h-screen">
         <CardContent className="flex flex-col gap-4 p-6">
-          <h1 style={{ marginBottom: '1.5rem' }}>Login</h1>
+          <h1 className='text-3xl font-bold' style={{ marginBottom: '1.5rem' }}>Login</h1>
 
           <form onSubmit={handleSubmit}>
             {/* Email Field */}

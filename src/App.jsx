@@ -5,6 +5,7 @@ import Loading from './Loading';
 import Login from './Login';
 import CreateAccount from './CreateAccount';
 import SeedPhrase from './SeedPhrase';
+import AllCoins from './AllCoins'
 import './App.css';
 
 export default function App() {
@@ -84,6 +85,20 @@ export default function App() {
                 transition={{ duration: 0.5 }}
               >
                 <SeedPhrase />
+              </motion.div>
+            }
+          />
+
+<Route
+            path="/allcoins"
+            element={
+              <motion.div
+                key="login"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                <AllCoins />
               </motion.div>
             }
           />

@@ -13,7 +13,7 @@ export default function SeedPhrase() {
         navigate('/create-account'); // Redirects to the signup page
     }
     const handleButtonClick1 = () => {
-        navigate('/create-account'); // Redirects to the signup page
+        navigate('/allcoins'); // Redirects to the signup page
     }
     const wordList = [
         'abandon', 'flame', 'able', 'sack', 'above', 'film', 'absorb', 
@@ -46,10 +46,10 @@ export default function SeedPhrase() {
                 // border:'3px solid white'
             }}>
 
-        <p onClick={handleButtonClick} className="logo1" 
+        {/* <p onClick={handleButtonClick} className="logo1" 
                 style={{ fontSize:'0.9rem'}}>
                 Go<span> back</span>
-        </p>               
+        </p>                */}
 
         <div className='mid-seed' style={{display: 'flex', flexDirection: 'column', gap:'1.5rem'}}>
         <h3 style={{ display: 'flex', 

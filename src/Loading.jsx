@@ -52,7 +52,7 @@ export default function Loading() {
                     initial={{ y: -30, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 2 }}
-                    className="text-6xl font-bold mb-4"
+                    // className="text-6xl font-bold mb-4"
                 >
                     Mi<span className="text-purple">Net</span>
                 </motion.div>

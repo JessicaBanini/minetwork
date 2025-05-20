@@ -100,9 +100,9 @@ const CreateAccount= ({ onLogin }) => {
         alignItems: 'center',
       }}
     >
-      <Box className="flex items-center justify-center h-screen bg-white">
+      <Box className="flex items-center justify-center h-screen ">
         <CardContent className="flex flex-col gap-4 p-6">
-          <h1 style={{ marginBottom: '1.5rem' }}>Sign Up</h1>
+          <h1 className='text-3xl font-bold' style={{ marginBottom: '1.5rem'}}>Sign Up</h1>
 
           <form onSubmit={handleSubmit}>
             {/* Name Field */}
