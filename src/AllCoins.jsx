@@ -1,151 +1,239 @@
-import React, { useState } from 'react';
-import { Box, TextField, Button, Typography, IconButton,InputAdornment } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings'; // Settings icon
-import NotificationsIcon from '@mui/icons-material/Notifications'; // Notifications bell icon
+import React, { useState, useEffect } from 'react';
+import { TextField, Typography, IconButton, CircularProgress, Modal } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import axios from 'axios';
+import ReactApexChart from 'react-apexcharts';
 
 function AllCoins() {
-  const [searchTerm, setSearchTerm] = useState(''); // State for search term
+  
+  const [searchTerm, setSearchTerm] = useState('');
+  const [coins, setCoins] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedCoin, setSelectedCoin] = useState(null);
+  const [ohlcData, setOhlcData] = useState([]);
+  const [chartLoading, setChartLoading] = useState(false);
 
-  // Handler for search input changes
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value); // Update search term
-    console.log('Filtered by:', event.target.value); // Log filtered value
+  useEffect(() => {
+    const fetchCoins = async () => {
+      try {
+        const response = await axios.get('https://api.coingecko.com/api/v3/coins/markets', {
+          params: {
+            vs_currency: 'usd',
+            order: 'market_cap_desc',
+            per_page: 20,
+            page: 1,
+            sparkline: true
+          }
+        });
+        setCoins(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching coins:', error);
+        setError('Failed to load coins data');
+        setLoading(false);
+      }
+    };
+    fetchCoins();
+  }, []);
+
+  const handleCoinClick = async (coinId) => {
+    setSelectedCoin(coinId);
+    setChartLoading(true);
+    try {
+      const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}/ohlc`, {
+        params: { vs_currency: 'usd', days: 7 }
+      });
+      setOhlcData(response.data);
+    } catch (error) {
+      console.error('Error fetching OHLC data:', error);
+    } finally {
+      setChartLoading(false);
+    }
   };
 
+  const filteredCoins = coins.filter(coin =>
+    coin.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    coin.symbol.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const formatNumber = (value) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(value);
+  };
+  
+
+  const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    bgcolor: '#0a192f',
+    border: '2px solid #16ec6f',
+    boxShadow: 24,
+    p: 4,
+    width: '90%',
+    maxWidth: 800
+  };
+
+  const candlestickOptions = {
+    chart: { type: 'candlestick', toolbar: { show: false } },
+    xaxis: { type: 'datetime' },
+    yaxis: { tooltip: { enabled: true } },
+    colors: ['#16ec6f'],
+    theme: { mode: 'dark' }
+  };
+
+
   return (
-    <>
-      <Box
-        className="page_container"
+    <div className="page_container flex flex-col items-center h-screen p-4 bg-[#0a192f] ">
+      {/* Header */}
+      <div className="flex items-center w-full mt-7 mb-2">
+        <IconButton className="p-2">
+          <SettingsIcon className="text-[#16ec6f]" />
+        </IconButton>
+        
+        <h1 className="flex-grow text-center mx-2 text-[#16ec6f] font-bold text-lg sm:text-xl">
+          Track Coins
+        </h1>
 
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100vh',
-          padding: '1rem',
-        }}
-      >
-        {/* Header Row */}
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-evenly',
-            width: '100%',
-            mt: 7,
-            mb: 2, // Margin bottom
-          }}
-        >
-          {/* Settings Icon */}
-          <IconButton aria-label="settings">
-            <SettingsIcon />
-          </IconButton>
+        <IconButton className="p-2">
+          <NotificationsIcon className="text-[#16ec6f]" />
+        </IconButton>
+      </div>
 
-          {/* Title */}
-          <Typography
-            variant="h5"
-            sx={{
-              // color: 'red', // Red text color
-              fontWeight: '', // Bold text
-              textAlign: 'center',
-              flexGrow: 1, // Take up remaining space
-              mx: 2, // Horizontal margin
-            }}
-          >
-            Track Coins
-          </Typography>
+      {/* Search Bar */}
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Search coins..."
+        className="w-full mb-3 p-2 bg-[#112240] rounded-lg border-none placeholder-gray-400 text-white focus:outline-none"
+      />
 
-          {/* Notifications Bell */}
-          <IconButton aria-label="notifications">
-            <NotificationsIcon />
-          </IconButton>
-        </Box>
+      {/* Error Message */}
+      {error && (
+        <p className="text-red-500 mt-2">{error}</p>
+      )}
 
-        {/* Search Bar */}
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '95%',
-            color: 'white',
-            
-            // Limit width of the search bar
-            mb: 1, // Margin bottom
-          }}
-        >
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            value={searchTerm}
-            
-            onChange={handleSearchChange}
-            placeholder="Search coins..."
-
-            sx={{
-              
-              mb: 3,
-              '& .MuiOutlinedInput-root': {
-                backgroundColor: '#112240',
-                color: '#FFFFFF',
-                border: '0.01px solid rgba(22, 236, 111, 0.23)',
-                borderRadius: '8px',
-              },
-              '& .MuiInputLabel-root': {
-                color: '#16ec6f',
-                fontWeight: 'bold',
-              },
-              '& .MuiOutlinedInput-notchedOutline': {
-                borderColor: 'transparent',
-              },
-              '& input:-webkit-autofill': {
-                WebkitBoxShadow: '0 0 0 100px #112240 inset', // Background color
-                WebkitTextFillColor: '#FFFFFF', // Text color
-                transition: 'background-color 5000s ease-in-out 0s', // Prevent animation
-              },
-            }}
-          />
-        </Box>
-
-        <p className=' align-left w-full'>
-          ALL COINS
-        </p>
-
-        <div >
-          <div className='w-screen flex justify-between border-1 border-gray-900  border-b-gray-600  p-5'>
-          <p>1</p>
-
-          <div>
-            <div className='flex flex-col'>
-            <div> <img/> Bitcon </div>
-            <p className=' text-gray-500'>BTC</p>
-            </div> 
-          </div>
-         
-          <div className='w-2/6 border-1 border-gray-600 '></div>
-
-
-
-          <div>
-            <div className='flex flex-col text-right '>
-            <div> $23,206.52 </div>
-            <p className=' text-red-700'>-9.5%</p>
-            </div> 
-          </div>
-
-
-
-          </div>
-          
-
+      {/* Coin List */}
+      {loading ? (
+        <div className="flex items-center justify-center h-full">
+          <CircularProgress className="text-[#16ec6f]" />
         </div>
+      ) : (
+        <div className="w-full">
+          {filteredCoins.length === 0 ? (
+            <p className="text-white mt-2"></p>
+          ) : (
+            filteredCoins.map((coin, index) => (
+              <div 
+                key={coin.id}
+                className="flex flex-col sm:flex-row justify-between items-center border-b border-[#2a3a55] py-4 cursor-pointer"
+                onClick={() => handleCoinClick(coin.id)}
+              >
+                {/* Coin Info */}
+                <div className="flex items-center w-full sm:w-1/2 mb-2 sm:mb-0">
+                
+                  <p className="text-gray-400 mr-2">{index + 1}</p>
+                  
+                  <img  
+                    src={coin.image} 
+                    alt={coin.name} 
+                    className="w-6 h-6 mr-2 ml-1.5" 
+                  />
 
-        
-        
-      </Box>
-    </>
+                  <div className='flex justify-between w-full ml-1.5'>
+                  <div>
+                    <p className="text-white">{coin.name}</p>
+                    <p className="text-gray-400">{coin.symbol.toUpperCase()}</p>
+                  </div>
+                  <div className="mt-2 sm:mt-0 ">
+                  <ReactApexChart 
+                    options={{
+                      chart: { 
+                        type: 'line',
+                        sparkline: { enabled: true },
+                        animations: { enabled: false }
+                      },
+                      stroke: { 
+                        curve: 'smooth',
+                        width: 1 // Thinner sparkline
+                      },
+                      colors: ['#16ec6f'],
+                      series: [{ data: coin.sparkline_in_7d?.price || [] }]
+                    }}
+                    series={[{ data: coin.sparkline_in_7d?.price || [] }]}
+                    type="line"
+                    height={35}
+                    width={105}
+                  />
+                </div>
+
+
+                  <div>
+                    <div className="w-full sm:w-1/4 text-center">
+                    <p className="text-white">{formatNumber(coin.current_price)}</p>
+                  </div>
+
+
+                {/* 24h Change */}
+                <div className="w-full sm:w-1/4 text-center">
+                  <p 
+                    className={`font-bold ${
+                      coin.price_change_percentage_24h >= 0 
+                        ? 'text-[#16ec6f]' 
+                        : 'text-red-500'
+                    }`}
+                  >
+                    {coin.price_change_percentage_24h.toFixed(2)}%
+                  </p>
+                </div>
+
+
+                </div>
+                </div>
+                </div>
+                
+                
+              </div>
+            ))
+          )}
+        </div>
+      )}
+
+      {/* Chart Modal */}
+      <Modal
+        open={!!selectedCoin}
+        onClose={() => setSelectedCoin(null)}
+      >
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+                        bg-[#0a192f] border-2 border-[#16ec6f] p-4 rounded-lg 
+                        max-w-2xl w-full">
+          <h2 className="text-[#16ec6f] text-lg mb-4">
+            {selectedCoin && coins.find(c => c.id === selectedCoin)?.name} Price Chart
+          </h2>
+          {chartLoading ? (
+            <CircularProgress className="text-[#16ec6f] mt-5" />
+          ) : (
+            <ReactApexChart 
+              options={candlestickOptions}
+              series={[{ data: ohlcData.map(d => ({
+                x: new Date(d[0]),
+                y: [d[1], d[2], d[3], d[4]]
+              })) }]}
+              type="candlestick"
+              height={300}
+            />
+          )}
+        </div>
+      </Modal>
+    </div>
   );
 }
 

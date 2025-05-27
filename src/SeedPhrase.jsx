@@ -54,13 +54,14 @@ export default function SeedPhrase() {
         <div className='mid-seed' style={{display: 'flex', flexDirection: 'column', gap:'1.5rem'}}>
         <h3 style={{ display: 'flex', 
                       flexDirection: 'column',
-                      padding:'0.5rem 0rem 0.5rem ' 
+                      padding:'0.5rem 0rem 0.5rem ',
+                      fontSize:'1.5rem',
                     }}>
                     Write down your Seed Phrase 
         </h3>
 
         <p  
-          style={{color:'#BAB8B8', 
+          style={{color:'#BAB8B8', fontFamily: '"Oxanium", sans-serif',
                 //   fontWeight:'200',
                   textAlign:'justify',
                   fontSize:'1.05rem'
@@ -101,6 +102,7 @@ export default function SeedPhrase() {
           <Typography 
             level="body-xs" 
             sx={{ 
+              fontFamily: '"Oxanium", sans-serif',
               color: '#16ec6f', 
               position: 'absolute',
               top: '11px',
@@ -113,6 +115,7 @@ export default function SeedPhrase() {
           <Typography
             component="span"
             sx={{
+              fontFamily: '"Oxanium", sans-serif',
               color: '#FFFFFF',
               fontSize: '0.9rem',
             //   pl: 2.5,
@@ -133,6 +136,7 @@ export default function SeedPhrase() {
         variant="solid" 
 
         sx={{ 
+          fontFamily: '"Oxanium", sans-serif',
             marginTop:'1rem',
              height:'6vh',
             //  marginBottom:'9rem',

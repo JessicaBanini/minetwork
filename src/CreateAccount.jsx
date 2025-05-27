@@ -102,7 +102,7 @@ const CreateAccount= ({ onLogin }) => {
     >
       <Box className="flex items-center justify-center h-screen ">
         <CardContent className="flex flex-col gap-4 p-6">
-          <h1 className='text-3xl font-bold' style={{ marginBottom: '1.5rem'}}>Sign Up</h1>
+          <h1 className='text-4xl font-bold' style={{ marginBottom: '1.5rem', fontFamily: '"Oxanium", sans-serif'}}>Create Account</h1>
 
           <form onSubmit={handleSubmit}>
             {/* Name Field */}
@@ -123,6 +123,7 @@ const CreateAccount= ({ onLogin }) => {
                 ),
               }}
               sx={{
+
                 mb: 3,
                 '& .MuiOutlinedInput-root': {
                   backgroundColor: '#112240',
@@ -285,6 +286,7 @@ const CreateAccount= ({ onLogin }) => {
             size="large"
             fullWidth
             sx={{
+              fontFamily: '"Oxanium", sans-serif',
               textTransform: 'none',
               backgroundColor: '#16ec6fef',
               color: '#0A192F',
@@ -304,6 +306,7 @@ const CreateAccount= ({ onLogin }) => {
           <Typography
             variant="body2"
             sx={{
+              fontFamily: '"Oxanium", sans-serif',
               mt: 2,
               color: '#fff',
               textAlign: 'center',

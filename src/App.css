@@ -1,11 +1,11 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Karla:ital,wght@0,200..800;1,200..800&family=Outfit:wght@100..900&family=Oxanium:wght@200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 *{
   
   /* background-color: #0A192F;   */
-  font-family: "Plus Jakarta Sans", sans-serif;
-  /* overflow-y: hidden; */
+  font-family: "Oxanium", sans-serif;  /* overflow-y: hidden; */
   
 
 }
