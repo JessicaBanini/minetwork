@@ -31,7 +31,7 @@ function AllCoins() {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching coins:', error);
-        setError('Failed to load coins data');
+        setError('Refresh after a minute');
         setLoading(false);
       }
     };
@@ -62,6 +62,7 @@ function AllCoins() {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
+      
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(value);
@@ -91,9 +92,9 @@ function AllCoins() {
 
 
   return (
-    <div className="page_container flex flex-col items-center h-screen p-4 bg-[#0a192f] ">
+    <div className="page_container flex flex-col items-center min-h-screen p-4 bg-[#0a192f] overflow-y-auto">
       {/* Header */}
-      <div className="flex items-center w-full mt-7 mb-2">
+      <div className="flex items-center w-full mt-7 mb-2 sticky top-0 z-10 bg-[#0a192f] ">
         <IconButton className="p-2">
           <SettingsIcon className="text-[#16ec6f]" />
         </IconButton>
@@ -113,7 +114,7 @@ function AllCoins() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         placeholder="Search coins..."
-        className="w-full mb-3 p-2 bg-[#112240] rounded-lg border-none placeholder-gray-400 text-white focus:outline-none"
+        className="w-full mb-3 p-2 bg-[#112240] rounded-lg border-none placeholder-gray-400 sticky top-20 z-10 bg-[#0a192f] text-white focus:outline-none"
       />
 
       {/* Error Message */}
@@ -127,7 +128,7 @@ function AllCoins() {
           <CircularProgress className="text-[#16ec6f]" />
         </div>
       ) : (
-        <div className="w-full">
+        <div className="space-y-4">
           {filteredCoins.length === 0 ? (
             <p className="text-white mt-2"></p>
           ) : (
@@ -138,7 +139,7 @@ function AllCoins() {
                 onClick={() => handleCoinClick(coin.id)}
               >
                 {/* Coin Info */}
-                <div className="flex items-center w-full sm:w-1/2 mb-2 sm:mb-0">
+                <div className="flex items-center border-2  border-amber-800 w-full sm:w-1/2 mb-2 sm:mb-0">
                 
                   <p className="text-gray-400 mr-2">{index + 1}</p>
                   
@@ -148,18 +149,19 @@ function AllCoins() {
                     className="w-6 h-6 mr-2 ml-1.5" 
                   />
 
-                  <div className='flex justify-between w-full ml-1.5'>
+                  <div className='flex items-center justify-between gap-4 w-full'>
                   <div>
-                    <p className="text-white">{coin.name}</p>
+                    <p className="text-white w-3/4 border-2  border-amber-800">{coin.name}</p>
                     <p className="text-gray-400">{coin.symbol.toUpperCase()}</p>
                   </div>
-                  <div className="mt-2 sm:mt-0 ">
+                  <div className=" mr-2 mt-2 sm:mt-0 sm:w-3/4 lg:w-1/2 ">
                   <ReactApexChart 
                     options={{
                       chart: { 
                         type: 'line',
                         sparkline: { enabled: true },
-                        animations: { enabled: false }
+                        animations: { enabled: false },
+                        tooltip: { enabled: false }
                       },
                       stroke: { 
                         curve: 'smooth',
@@ -171,13 +173,13 @@ function AllCoins() {
                     series={[{ data: coin.sparkline_in_7d?.price || [] }]}
                     type="line"
                     height={35}
-                    width={105}
+                    width={70}
                   />
                 </div>
 
 
                   <div>
-                    <div className="w-full sm:w-1/4 text-center">
+                    <div className="w-full border-2  border-amber-800 sm:w-1/4 text-center">
                     <p className="text-white">{formatNumber(coin.current_price)}</p>
                   </div>
 
@@ -228,7 +230,7 @@ function AllCoins() {
                 y: [d[1], d[2], d[3], d[4]]
               })) }]}
               type="candlestick"
-              height={300}
+              height={230}
             />
           )}
         </div>
