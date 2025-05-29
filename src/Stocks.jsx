@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import { TextField, CircularProgress, Modal } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsModal from "./NotificationsModal";
+import SettingsSidebar from "./SettingsSidebar";
 import axios from "axios";
 import ReactApexChart from "react-apexcharts";
 
 const StockApp = () => {
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [stockData, setStockData] = useState([]);
   const [filteredStocks, setFilteredStocks] = useState([]);
@@ -108,12 +112,23 @@ const StockApp = () => {
     <div className="page_container flex flex-col items-center min-h-screen p-4 bg-[#0a192f] overflow-y-auto mb-10">
       {/* Header */}
       <div className="flex items-center w-full mt-7 mb-2 sticky top-0 z-10 bg-[#0a192f]">
-        <SettingsIcon className="text-[#16ec6f] cursor-pointer" />
+        <SettingsIcon className="text-[#16ec6f] cursor-pointer" onClick={() => setIsSettingsOpen(true)} />
         <h1 className="flex-grow text-center mx-2 text-[#16ec6f] font-bold text-lg sm:text-xl">
           Track Stocks
         </h1>
-        <NotificationsIcon className="text-[#16ec6f] cursor-pointer" />
+        <NotificationsIcon className="text-[#16ec6f] cursor-pointer" onClick={() => setIsNotificationOpen(true)}/>
       </div>
+
+      <NotificationsModal
+        isOpen={isNotificationOpen}
+        onClose={() => setIsNotificationOpen(false)}
+      />
+
+      {/* Settings Sidebar */}
+      <SettingsSidebar
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
 
       {/* Search Bar */}
       <input

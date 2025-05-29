@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Typography, IconButton, CircularProgress, Modal } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsModal from "./NotificationsModal";
+import SettingsSidebar from "./SettingsSidebar";
 import axios from 'axios';
 import ReactApexChart from 'react-apexcharts';
 
 function AllCoins() {
-  
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -96,7 +99,7 @@ function AllCoins() {
       {/* Header */}
       <div className="flex items-center w-full mt-7 mb-2 sticky top-0 z-10 bg-[#0a192f] ">
         <IconButton className="p-2">
-          <SettingsIcon className="text-[#16ec6f]" />
+          <SettingsIcon className="text-[#16ec6f]" onClick={() => setIsSettingsOpen(true)} />
         </IconButton>
         
         <h1 className="flex-grow text-center mx-2 text-[#16ec6f] font-bold text-lg sm:text-xl">
@@ -104,10 +107,19 @@ function AllCoins() {
         </h1>
 
         <IconButton className="p-2">
-          <NotificationsIcon className="text-[#16ec6f]" />
+          <NotificationsIcon className="text-[#16ec6f]" onClick={() => setIsNotificationOpen(true)} />
         </IconButton>
       </div>
+      <NotificationsModal
+        isOpen={isNotificationOpen}
+        onClose={() => setIsNotificationOpen(false)}
+      />
 
+      {/* Settings Sidebar */}
+      <SettingsSidebar
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
       {/* Search Bar */}
       <input
         type="text"

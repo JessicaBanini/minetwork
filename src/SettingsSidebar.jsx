@@ -30,7 +30,7 @@ const SettingsSidebar = ({ isOpen, onClose }) => {
     <>
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-90 bg-[#0a192f] text-white z-50 transform transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full w-90 bg-[#0a192f] text-white z-50 transform transition-transform duration-100 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
