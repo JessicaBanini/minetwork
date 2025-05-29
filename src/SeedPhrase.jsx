@@ -13,7 +13,7 @@ export default function SeedPhrase() {
         navigate('/create-account'); // Redirects to the signup page
     }
     const handleButtonClick1 = () => {
-        navigate('/allcoins'); // Redirects to the signup page
+        navigate('/crypto'); // Redirects to the signup page
     }
     const wordList = [
         'abandon', 'flame', 'able', 'sack', 'above', 'film', 'absorb', 

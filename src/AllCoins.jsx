@@ -92,7 +92,7 @@ function AllCoins() {
 
 
   return (
-    <div className="page_container flex flex-col items-center min-h-screen p-4 bg-[#0a192f] overflow-y-auto">
+    <div className="page_container flex flex-col items-center min-h-screen p-4 bg-[#0a192f] overflow-y-auto mb-10">
       {/* Header */}
       <div className="flex items-center w-full mt-7 mb-2 sticky top-0 z-10 bg-[#0a192f] ">
         <IconButton className="p-2">
@@ -100,7 +100,7 @@ function AllCoins() {
         </IconButton>
         
         <h1 className="flex-grow text-center mx-2 text-[#16ec6f] font-bold text-lg sm:text-xl">
-          Track Coins
+          Track Crypto
         </h1>
 
         <IconButton className="p-2">
@@ -113,19 +113,19 @@ function AllCoins() {
         type="text"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Search coins..."
+        placeholder="  Search coins..."
         className="w-full mb-3 p-2 bg-[#112240] rounded-lg border-none placeholder-gray-400 sticky top-20 z-10 bg-[#0a192f] text-white focus:outline-none"
       />
 
       {/* Error Message */}
       {error && (
-        <p className="text-red-500 mt-2">{error}</p>
+        <p className="text-red-400 mt-2">{error}</p>
       )}
 
       {/* Coin List */}
       {loading ? (
-        <div className="flex items-center justify-center h-full">
-          <CircularProgress className="text-[#16ec6f]" />
+        <div className="flex items-center justify-center m-h-3/4">
+          <CircularProgress className="text-[#16ec6f] " />
         </div>
       ) : (
         <div className="space-y-4">
@@ -135,11 +135,11 @@ function AllCoins() {
             filteredCoins.map((coin, index) => (
               <div 
                 key={coin.id}
-                className="flex flex-col sm:flex-row justify-between items-center border-b border-[#2a3a55] py-4 cursor-pointer"
+                className="flex flex-col sm:flex-row justify-between items-center border-b border-[#2a3a55] py-4 px-1 cursor-pointer"
                 onClick={() => handleCoinClick(coin.id)}
               >
                 {/* Coin Info */}
-                <div className="flex items-center border-2  border-amber-800 w-full sm:w-1/2 mb-2 sm:mb-0">
+                <div className="flex items-center w-full sm:w-1/2 mb-2 sm:mb-0">
                 
                   <p className="text-gray-400 mr-2">{index + 1}</p>
                   
@@ -151,7 +151,7 @@ function AllCoins() {
 
                   <div className='flex items-center justify-between gap-4 w-full'>
                   <div>
-                    <p className="text-white w-3/4 border-2  border-amber-800">{coin.name}</p>
+                    <p className="text-white w-4/4 ">{coin.name}</p>
                     <p className="text-gray-400">{coin.symbol.toUpperCase()}</p>
                   </div>
                   <div className=" mr-2 mt-2 sm:mt-0 sm:w-3/4 lg:w-1/2 ">
@@ -179,13 +179,13 @@ function AllCoins() {
 
 
                   <div>
-                    <div className="w-full border-2  border-amber-800 sm:w-1/4 text-center">
-                    <p className="text-white">{formatNumber(coin.current_price)}</p>
+                    <div className="w-full sm:w-1/4 text-right">
+                    <p className="text-white ">{formatNumber(coin.current_price)}</p>
                   </div>
 
 
                 {/* 24h Change */}
-                <div className="w-full sm:w-1/4 text-center">
+                <div className="w-full sm:w-1/4 text-right">
                   <p 
                     className={`font-bold ${
                       coin.price_change_percentage_24h >= 0 

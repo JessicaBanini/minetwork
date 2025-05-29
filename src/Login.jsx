@@ -50,7 +50,7 @@ const Login = ({ onLogin }) => {
     setSnackbarOpen(true); // Open Snackbar for success
     setTimeout(() => {
       setSnackbarOpen(false); // Close Snackbar after redirect
-      navigate('/allcoins', { state: { email: credentials.email } });
+      navigate('/crypto', { state: { email: credentials.email } });
     }, 1000); // Redirect after 3 seconds
   };
 

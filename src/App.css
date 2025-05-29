@@ -44,14 +44,14 @@ form{
   .page_container {
     display: flex;
     flex-direction: column;
-    height: 100dvh; /* Full viewport height */
+    height: 100%; /* Full viewport height */
     justify-content: center;
     align-items: center;
     background: transparent;
     animation: none;
     margin-left: 20%;
     margin-right: 20%;
-    overflow: hidden; /* Prevent scrollbars */
+   /* Prevent scrollbars */
     /* background: linear-gradient(270deg, #ffffff, #ebf4ff, #e6f2ff, #ffffff); */
     /* background-size: 500% 500%; Extend the gradient size for animation */
     /* animation: gradientAnimation 15s infinite alternate; Smooth gradient movement */
@@ -84,12 +84,12 @@ form{
   .page_container {
     display: flex;
     flex-direction: column;
-    height: 100dvh; /* Full viewport height */
+    /* height: 50%; Full viewport height */
     justify-content: center;
     align-items: center;
     margin-left: 35%;
     margin-right: 35%;
-    overflow: hidden; /* Prevent scrollbars */
+    /* width:100%; */
     /* background: white; */
     /* animation: none; */
     /* background: linear-gradient(270deg, #ffffff, #ebf4ff, #e6f2ff, #ffffff); */
