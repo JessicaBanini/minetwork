@@ -85,7 +85,7 @@ const CurrencyConverter = () => {
       {loading ? (
         <p className="text-gray-400">Loading exchange rates...</p>
       ) : (
-        <div className="w-full max-w-md space-y-4 bg-gray-800 p-6 rounded-lg shadow-lg">
+        <div className="w-full max-w-md space-y-4 bg-[#112240] p-6 rounded-lg shadow-lg">
           {/* From Currency Dropdown */}
           <div className="flex items-center space-x-2">
             {fromFlag && (
@@ -99,7 +99,7 @@ const CurrencyConverter = () => {
             
               value={fromCurrency}
               onChange={(e) => setFromCurrency(e.target.value)}
-              className="w-full p-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
+              className="w-full p-2 bg-[#0a192f] rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
             >
               {Object.keys(exchangeRates).map((currency) => (
                 <option key={currency} value={currency}>
@@ -121,7 +121,7 @@ const CurrencyConverter = () => {
             <select
               value={toCurrency}
               onChange={(e) => setToCurrency(e.target.value)}
-              className="w-full p-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
+              className="w-full p-2 bg-[#0a192f] rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
             >
               {Object.keys(exchangeRates).map((currency) => (
                 <option key={currency} value={currency}>
@@ -137,7 +137,7 @@ const CurrencyConverter = () => {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="Enter amount"
-            className="w-full p-3 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
+            className="w-full p-3 bg-[#0a192f] rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
           />
 
           {/* Converted Amount */}
