@@ -17,7 +17,7 @@ const SettingsSidebar = ({ isOpen, onClose }) => {
     {
       title: "ACCOUNT",
       subtitles: [
-        { subtitle: "Payment Currency", details: "£ GBP" },
+        { subtitle: "Payment Currency", details: "$ USD" },
         { subtitle: "Language", details: "English" },
         { subtitle: "PayString" },
       ],

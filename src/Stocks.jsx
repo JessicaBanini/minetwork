@@ -147,22 +147,22 @@ const StockApp = () => {
   };
 
   const StockSkeleton = () => (
-    <div className="flex sm:flex-row justify-between gap-4 items-center border-b border-[#2a3a55] py-2 px-1">
+    <div className="flex sm:flex-row justify-between gap-4 items-center border-b border-[#2a3a55] py-8 px-1">
       <div className="flex items-center w-full ">
-        <Skeleton variant="text" width={20} height={20} className="mr-2" sx={{bgcolor: 'rgba(255,255,255,0.1)' }}/>
+        <Skeleton variant="text" width={20} height={20} className="mr-2" sx={{bgcolor: 'rgba(255,255,255,0.08)' }}/>
         <div>
-          <Skeleton variant="text" width={100} height={20} sx={{bgcolor: 'rgba(255,255,255,0.1)' }}/>
-          <Skeleton variant="text" width={60} height={16} sx={{bgcolor: 'rgba(255,255,255,0.1)' }}/>
+          <Skeleton variant="text" width={100} height={20} sx={{bgcolor: 'rgba(255,255,255,0.08)' }}/>
+          <Skeleton variant="text" width={60} height={16} sx={{bgcolor: 'rgba(255,255,255,0.08)' }}/>
         </div>
       </div>
       <div className="w-full ml-6 mt-2 sm:mt-0">
-        <Skeleton variant="rectangular" width={70} height={35} sx={{bgcolor: 'rgba(255,255,255,0.1)' }}/>
+        <Skeleton variant="rectangular" width={70} height={35} sx={{bgcolor: 'rgba(255,255,255,0.08)' }}/>
       </div>
       {/* <div className="w-full  text-center sm:text-right mb-2 sm:mb-0">
         <Skeleton variant="text" width={60} height={20} />
       </div> */}
       <div className="w-full  text-center sm:text-right">
-        <Skeleton variant="text" width={40} height={20} sx={{bgcolor: 'rgba(255,255,255,0.1)' }}/>
+        <Skeleton variant="text" width={40} height={20} sx={{bgcolor: 'rgba(255,255,255,0.08)' }}/>
       </div>
     </div>
   );
@@ -189,7 +189,7 @@ const StockApp = () => {
       />
 
       {/* Search Bar */}
-      <div className="sticky top-[56px] z-10 w-full">
+      <div className="sticky top-[56px] z-10 w-full bg-[#0a192f]">
       <input
         type="text"
         value={searchTerm}

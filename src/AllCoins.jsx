@@ -136,21 +136,21 @@ function AllCoins() {
 
 
   const CoinSkeleton = () => (
-    <div className=" custom-skeleton w-full flex justify-between gap-4 items-center  border-b border-[#2a3a55] py-8 px-1">
+    <div className=" w-full flex justify-between gap-4 items-center  border-b border-[#2a3a55] py-8 px-1">
       <div className="flex items-center w-full ">
-        {/* <Skeleton variant="text" width={20} height={20} className="mr-2" /> */}
-        <Skeleton variant="circular" width={34} height={34} className="mr-2" sx={{bgcolor: 'rgba(255,255,255,0.1)' }} />
+        <Skeleton variant="text" width={20} height={20} className="mr-2" sx={{bgcolor: 'rgba(255,255,255,0.08)'}} />
+        <Skeleton variant="circular" width={34} height={34} className="mr-2" sx={{bgcolor: 'rgba(255,255,255,0.08)' }} />
         <div>
-          <Skeleton variant="text" width={60} height={20} sx={{bgcolor: 'rgba(255,255,255,0.1)' }} />
-          <Skeleton variant="text" width={20} height={16} sx={{bgcolor: 'rgba(255,255,255,0.1)' }} />
+          <Skeleton variant="text" width={60} height={20} sx={{bgcolor: 'rgba(255,255,255,0.08)' }} />
+          <Skeleton variant="text" width={20} height={16} sx={{bgcolor: 'rgba(255,255,255,0.08)' }} />
         </div>
       </div>
       
       <div className="w-full text-right ml-4 ">
-        <Skeleton variant="text" width={80} height={30} sx={{bgcolor: 'rgba(255,255,255,0.1)' }}/>
+        <Skeleton variant="text" width={60} height={30} sx={{bgcolor: 'rgba(255,255,255,0.08)' }}/>
       </div>
       <div className="w-full text-right ml-2">
-        <Skeleton variant="text" width={60} height={30} sx={{bgcolor: 'rgba(255,255,255,0.1)' }}/>
+        <Skeleton variant="text" width={60} height={30} sx={{bgcolor: 'rgba(255,255,255,0.08)' }}/>
       </div>
     </div>
   );
@@ -182,7 +182,7 @@ function AllCoins() {
         onClose={() => setIsSettingsOpen(false)}
       />
       {/* Search Bar */}
-      <div className="sticky top-[58px] z-10 w-full">
+      <div className="sticky top-[58px] z-10 w-full bg-[#0a192f]">
       <input
         type="text"
         value={searchTerm}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, CircularProgress, Modal, Skeleton } from '@mui/material';
+import { TextField, CircularProgress, Modal, Skeleton, Snackbar } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsModal from "./NotificationsModal";
@@ -13,11 +13,9 @@ const Forex = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [forexData, setForexData] = useState([]);
   const [filteredPairs, setFilteredPairs] = useState([]);
-  const [selectedPair, setSelectedPair] = useState(null);
-  const [ohlcData, setOhlcData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [chartLoading, setChartLoading] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   // FastForex API Configuration
   const FASTFOREX_API_KEY = 'df73735f93-c04b9a7d5d-swzncp'; // Replace with your FastForex API key
@@ -84,22 +82,24 @@ const Forex = () => {
           // API Rate Limit Exceeded
           setError({
             type: 'quota',
-            message: 'Too many requests. Please refresh or try again later.',
+            message: 'Too many requests. Please refresh or try again later',
           });
 
           // Retry after 30 seconds
           retryTimeout = setTimeout(fetchForexData, 30000);
+
         } else if (!navigator.onLine) {
           // No Internet Connection
           setError({
             type: 'network',
-            message: 'You appear to be offline. Please check your internet connection.',
+            message: 'You are disconnected. Please check your internet connection.',
           });
+
         } else {
           // General Error
           setError({
             type: 'general',
-            message: 'Failed to load data. Please refresh or try again later.',
+            message: 'Too many requests. Please refresh or try again later.',
           });
         }
 
@@ -121,41 +121,13 @@ const Forex = () => {
     );
   }, [searchTerm, forexData]);
 
-  const handlePairClick = async (pair) => {
-    setSelectedPair(pair);
-    setChartLoading(true);
+  const handlePairClick = () => {
+    // Show Snackbar when user clicks on a pair
+    setSnackbarOpen(true);
+  };
 
-    try {
-      const [base, quote] = pair.split('/');
-      const endDate = new Date();
-      const startDate = new Date();
-      startDate.setDate(endDate.getDate() - 7);
-
-      const response = await axios.get(`${BASE_URL}/historical`, {
-        params: {
-          date_from: startDate.toISOString().split('T')[0],
-          date_to: endDate.toISOString().split('T')[0],
-          from: base,
-          to: quote,
-          api_key: FASTFOREX_API_KEY,
-        },
-      });
-
-      const ohlc = Object.entries(response.data.results).map(([date, rates]) => ({
-        x: new Date(date).getTime(),
-        y: [rates[quote], rates[quote], rates[quote], rates[quote]],
-      }));
-
-      setOhlcData(ohlc);
-    } catch (error) {
-      console.error("Error fetching historical data:", error);
-      setError({
-        type: 'general',
-        message: 'Failed to load chart data. Please try again later.',
-      });
-    } finally {
-      setChartLoading(false);
-    }
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
   };
 
   const formatNumber = (value) => {
@@ -166,30 +138,30 @@ const Forex = () => {
   };
 
   const PairSkeleton = () => (
-    <div className="flex flex-col sm:flex-row justify-between items-center border-b border-[#2a3a55] py-4">
-      <div className="flex items-center w-full sm:w-1/2 mb-2 sm:mb-0">
-        <Skeleton variant="text" width={20} height={20} className="mr-2" />
+    <div className=" w-full flex justify-between gap-4 items-center  border-b border-[#2a3a55] py-8 px-1">
+      <div className="flex items-center w-full ">
+        <Skeleton variant="text" width={20} height={20} className="mr-2" sx={{bgcolor: 'rgba(255,255,255,0.1)' }}/>
         <div>
-          <Skeleton variant="text" width={100} height={20} />
-          <Skeleton variant="text" width={60} height={16} />
+          <Skeleton variant="text" width={70} height={20} sx={{bgcolor: 'rgba(255,255,255,0.08)' }} />
+          {/* <Skeleton variant="text" width={60} height={16} sx={{bgcolor: 'rgba(255,255,255,0.1)' }}/> */}
         </div>
       </div>
-      <div className="w-full ml-6 mt-2 sm:mt-0">
-        <Skeleton variant="rectangular" width={70} height={35} />
+      <div className="w-full  mt-2 ">
+        <Skeleton variant="rectangular" width={50} height={35} sx={{bgcolor: 'rgba(255,255,255,0.08)' }} />
       </div>
-      <div className="w-full sm:w-1/4 text-right">
-        <Skeleton variant="text" width={60} height={20} />
+      <div className="w-full text-right">
+        <Skeleton variant="text" width={60} height={20} sx={{bgcolor: 'rgba(255,255,255,0.08)' }} />
       </div>
-      <div className="w-full sm:w-1/4 text-right">
-        <Skeleton variant="text" width={40} height={20} />
+      <div className="w-full text-right">
+        <Skeleton variant="text" width={40} height={20} sx={{bgcolor: 'rgba(255,255,255,0.08)' }}/>
       </div>
     </div>
   );
 
   return (
-    <div className="page_container flex flex-col items-center min-h-screen p-4 bg-[#0a192f] overflow-y-auto mb-10">
+    <div className="page_container flex flex-col items-center min-h-screen p-4 bg-[#0a192f] mb-10">
       {/* Header */}
-      <div className="flex items-center w-full mt-7 mb-2 sticky top-0 z-10 bg-[#0a192f]">
+      <div className="sticky top-0 z-10 bg-[#0a192f] w-full flex items-center justify-between  py-4 ">
         <SettingsIcon className="text-[#16ec6f] cursor-pointer" onClick={() => setIsSettingsOpen(true)} />
         <h1 className="flex-grow text-center mx-2 text-[#16ec6f] font-bold text-lg sm:text-xl">
           Track Forex
@@ -209,6 +181,7 @@ const Forex = () => {
       />
 
       {/* Top Movers */}
+      <div className="sticky top-[56px] z-10 w-full bg-[#0a192f]">
       {!loading && (
         <div className="w-full mt-4 mb-4">
           <h2 className="text-[#fff] text-lg font-bold mb-2">Top 5 Movers</h2>
@@ -220,7 +193,7 @@ const Forex = () => {
               .map((pair, index) => (
                 <div
                   key={index}
-                  onClick={() => handlePairClick(pair.symbol)}
+                  onClick={handlePairClick} // Show Snackbar on click
                   className="min-w-[110px] p-3 bg-[#112240] rounded-lg cursor-pointer hover:scale-105 transition-transform"
                 >
                   <p className="text-white text-sm">{pair.symbol}</p>
@@ -238,8 +211,10 @@ const Forex = () => {
           </div>
         </div>
       )}
+      </div>
 
       {/* Search Bar */}
+      <div className="sticky top-[60px] z-10 w-full">
       <input
         type="text"
         value={searchTerm}
@@ -247,6 +222,7 @@ const Forex = () => {
         placeholder="  Search currency pairs..."
         className="w-full mb-3 p-2 bg-[#112240] rounded-lg border-none placeholder-gray-400 text-white focus:outline-none"
       />
+      </div>
 
       {/* Error Message */}
       {error && (
@@ -268,7 +244,7 @@ const Forex = () => {
             <div
               key={pair.id}
               className="flex flex-col sm:flex-row justify-between items-center border-b border-[#2a3a55] py-4 cursor-pointer"
-              onClick={() => handlePairClick(pair.symbol)}
+              onClick={handlePairClick} // Show Snackbar on click
             >
               {/* Pair Info */}
               <div className='flex items-center justify-between w-full'>
@@ -287,6 +263,9 @@ const Forex = () => {
                         type: 'line',
                         sparkline: { enabled: true },
                         animations: { enabled: false },
+                      },
+                      tooltip: {
+                        enabled: false,
                       },
                       stroke: {
                         curve: 'smooth',
@@ -324,6 +303,21 @@ const Forex = () => {
           ))}
         </div>
       )}
+
+      {/* Snackbar */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        message="No chart available for this currency pair."
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        ContentProps={{
+          sx: {
+            backgroundColor: '#112240',
+            color: '#ffffff',
+          },
+        }}
+      />
     </div>
   );
 };
