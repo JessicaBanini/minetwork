@@ -34,6 +34,7 @@ const BottomNavbar = () => {
   };
 
   return (
+
     <BottomNavigation
       value={value}
       onChange={handleChange}

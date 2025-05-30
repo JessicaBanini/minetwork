@@ -150,10 +150,10 @@ const Forex = () => {
         <Skeleton variant="rectangular" width={50} height={35} sx={{bgcolor: 'rgba(255,255,255,0.08)' }} />
       </div>
       <div className="w-full text-right">
-        <Skeleton variant="text" width={60} height={20} sx={{bgcolor: 'rgba(255,255,255,0.08)' }} />
+        <Skeleton variant="text" width={60} height={30} sx={{bgcolor: 'rgba(255,255,255,0.08)' }} />
       </div>
       <div className="w-full text-right">
-        <Skeleton variant="text" width={40} height={20} sx={{bgcolor: 'rgba(255,255,255,0.08)' }}/>
+        <Skeleton variant="text" width={40} height={30} sx={{bgcolor: 'rgba(255,255,255,0.08)' }}/>
       </div>
     </div>
   );
