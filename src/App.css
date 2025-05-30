@@ -38,6 +38,12 @@ form{
 }
 
 
+/* styles.css */
+.custom-skeleton {
+  color: #112240; /* Dark blue-gray */
+  
+}
+
 @media (min-width: 768px) and (max-width: 1024px) {
   /* Styles for tablets */
 
