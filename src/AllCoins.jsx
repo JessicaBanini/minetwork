@@ -298,7 +298,7 @@ function AllCoins() {
           </h2>
           <CloseIcon 
               className="text-[#16ec6f] cursor-pointer" 
-              onClick={() => setSelectedStock(null)} 
+              onClick={() => setSelectedCoin(null)} 
             />
           </div>
           {chartLoading ? (
